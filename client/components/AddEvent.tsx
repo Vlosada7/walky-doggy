@@ -4,6 +4,7 @@ import * as ApiService from '../src/service/ApiService';
 import moment from 'moment'
 import { setHours, setMinutes, setSeconds, setMilliseconds, endOfDay } from 'date-fns';
 import 'react-datepicker/dist/react-datepicker.css';
+import { postWalk } from '../src/Service/api';
 
 const now = new Date();
 const currentHour = setSeconds(setMilliseconds(setMinutes(setHours(now, now.getHours()), 0), 0), 0);
@@ -28,6 +29,7 @@ const AddEvent = () => {
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     if (date !== null && moment(date).isAfter(moment())) {
       ApiService.addEvent({ title, date, venue });
+      postWalk({name:title, date, venue}); //TROCAR PARA PRINCIPAL DEPOIS
       setTitle('');
       setDate(null);
       setVenue('');
