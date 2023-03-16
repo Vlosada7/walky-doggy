@@ -32,7 +32,6 @@ export const deleteWalk = async (id) => {
 			headers: {
 				"Content-Type": "application/json",
 			},
-			body: JSON.stringify(info),
 		});
 		const data = await response.json();
 		if (response.ok) {

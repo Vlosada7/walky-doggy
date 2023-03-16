@@ -28,7 +28,7 @@ const AddEvent = () => {
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     if (date !== null && moment(date).isAfter(moment())) {
-      ApiService.addEvent({ title, date, venue });
+      // ApiService.addEvent({ title, date, venue });
       postWalk({name:title, date, venue}); //TROCAR PARA PRINCIPAL DEPOIS
       setTitle('');
       setDate(null);

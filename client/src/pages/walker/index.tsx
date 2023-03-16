@@ -4,6 +4,7 @@ import Events from '../../../components/Events';
 import { useState, useEffect } from 'react';
 import styles from '../../styles/Home.module.css';
 import * as ApiService from '../../service/ApiService';
+import { getAllWalks, deleteWalk } from '../../Service/api';
 
 type EventProps = {
   _id?: string;
@@ -18,13 +19,13 @@ const Walker = () => {
   const fetchEvents = ApiService.getEvents;
 
   const deleteEvent = async (_id: string) => {
-    await ApiService.deleteEvent(_id);
+    await deleteWalk(_id);
     setEvents(events.filter((event) => event._id !== _id));
   };
 
   useEffect(() => {
     const getEvents = async () => {
-      const eventsServer = await fetchEvents();
+      const eventsServer = await getAllWalks();
       setEvents(eventsServer);
     };
     getEvents();

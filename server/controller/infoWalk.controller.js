@@ -32,8 +32,8 @@ const postWalk = async (req, res) => {
 		date: req.body.date,
 		venue: req.body.venue,
 		records: {
-			pee: null,
-			poo: null,
+			pee: false,
+			poo: false,
 		},
 		image: null,
 		coordinates: [41.395017,2.197883],
@@ -56,7 +56,7 @@ const deleteWalk = async (req, res) => {
     if (!walk) {
       return res.status(404).send('Walk not found');
     }
-    return res.status(200).send('Walk deleted successfully');
+    return res.status(200).json(id);
   } catch (error) {
     console.error(error);
     return res.status(500).send('Error deleting walk');
@@ -66,24 +66,26 @@ const deleteWalk = async (req, res) => {
 const updateWalk = async (req, res) => {
   console.log('updateWalk')
   const id = req.params.id;
-  const walk = {
-    name: req.body.name,
-		date: req.body.info,
-		venue: req.body.venue,
-		records: {
-			pee: req.body.records.pee,
-			poo: req.body.records.poo,
-		},
-		image: req.body.image,
-		coordinates: req.body.coordinates,
-  }
+  console.log(id);
+  console.log(req.body.records)
 
   try {
-    const updateWalk = await InfoWalk.findByIdAndUpdate(id, walk, { new: true});
-    if (!updateWalk) {
+    const walk = await InfoWalk.findByIdAndUpdate(id, {
+      $set: {
+        records: {
+          pee: req.body.records.pee,
+          poo: req.body.records.poo
+        },
+        image: req.body.image,
+        coordinates: req.body.coordinates
+      }
+    }, { new: true });
+
+    if (!walk) {
       return res.status(404).send('Walk not found');
     }
-    return res.status(200).send(updateWalk);
+
+    return res.status(200).send(walk);
   } catch (error) {
     console.error(error);
     return res.status(500).send('Error updating walk');
