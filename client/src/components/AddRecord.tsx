@@ -14,7 +14,7 @@ const AddRecord = ({ eventId }: AddRecordProps) => {
   const [coordinates, setCoordinates] = useState([]);
   const [uploadData, setUploadData] = useState<ImageData | null>(null);
   const router = useRouter();
-  const { _id } = router.query
+  const { _id } = router.query;
 
   const addImage = ApiService.addImage(image);
 
@@ -33,11 +33,11 @@ const AddRecord = ({ eventId }: AddRecordProps) => {
     let info = {
       records: {
         pee: pee,
-        poo: poo
+        poo: poo,
       },
-      image: image
-    }
-    updateWalk(_id, info)
+      image: image,
+    };
+    updateWalk(_id, info);
     setPee(false);
     setPoo(false);
     setImage('');
@@ -93,12 +93,12 @@ const AddRecord = ({ eventId }: AddRecordProps) => {
         </label>
         <input type='file' name='file' id='upimage' onChange={handleOnChange} />
         <img className='img-preview' src={image} />
-        {image && !uploadData && <button>Upload Files</button>}
+        {/* {image && !uploadData && <button>Upload Files</button>}
         {uploadData && (
           <code>
             <pre>{JSON.stringify(uploadData, null, 2)}</pre>
           </code>
-        )}
+        )} */}
       </div>
       <div className='button-record'>
         <input type='submit' value='Submit' className='btn-record' />
