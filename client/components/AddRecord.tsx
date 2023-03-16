@@ -1,7 +1,5 @@
 import { useState } from 'react';
-import { useRouter } from 'next/router';
-// import * as ApiService from '../src/service/ApiService';
-import { updateWalk } from '../src/Service/api';
+import * as ApiService from '../src/service/ApiService';
 
 type AddRecordProps = {
   eventId: string;
@@ -10,21 +8,10 @@ type AddRecordProps = {
 const AddRecord = ({ eventId }: AddRecordProps) => {
   const [pee, setPee] = useState(false);
   const [poo, setPoo] = useState(false);
-  const router = useRouter();
-  const { _id } = router.query
-  console.log(_id)
-
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // ApiService.addRecord({ eventId, pee, poo });
-    let info = {
-      records: {
-        pee: pee,
-        poo: poo
-      }
-    }
-    updateWalk(_id, info)
+    ApiService.addRecord({ eventId, pee, poo });
     setPee(false);
     setPoo(false);
   };
